@@ -13,6 +13,10 @@ namespace EndlessSpaceInvasion
         private PlayerSprite _sprite1;
         private PlayerSprite _sprite2;
 
+       
+        int screenWidth;
+        int screenHeight;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -31,16 +35,19 @@ namespace EndlessSpaceInvasion
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _sprite1 = new PlayerSprite(Content.Load<Texture2D>("WhiteShip"));                     //loads WhiteShip Sprite
+
+            screenWidth = GraphicsDevice.Viewport.Width;
+            screenHeight = GraphicsDevice.Viewport.Height;
+
+            _sprite1 = new PlayerSprite(Content.Load<Texture2D>("WhiteShip"), this._graphics.GraphicsDevice.Viewport);                     //loads WhiteShip Sprite
             _sprite1.Position = new Vector2(375, 400);                                            // Position of the WhiteShip Sprite when the game is started
 
-            _sprite2 = new PlayerSprite(Content.Load<Texture2D>("RedShip"));                     //loads RedShip Sprite
+            _sprite2 = new PlayerSprite(Content.Load<Texture2D>("RedShip"), this._graphics.GraphicsDevice.Viewport);                     //loads RedShip Sprite
             _sprite2.Position = new Vector2(375, 100);                                           // Position of the RedShip Sprite when the game is started
         }
 
         protected override void Update(GameTime gameTime)
         {
-
             _sprite1.Update();         // updates WhiteShip sprite
 
             base.Update(gameTime);
