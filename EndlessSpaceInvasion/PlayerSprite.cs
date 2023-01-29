@@ -25,29 +25,34 @@ namespace EndlessSpaceInvasion
         {
             if (Keyboard.GetState().IsKeyDown(Keys.W)) // moves the sprite up
             {
-                if (Position.Y >= 10)
-                    Position.Y -= 3;                          
+                if (Position.Y >= -16)
+                    Position.Y -= 3;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.S))// moves the sprite down
             {
-                if (Position.Y < _viewport.Height - 30)
-                    Position.Y += 3;                       
+                if (Position.Y < _viewport.Height - 55)
+                    Position.Y += 3;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D))   // moves the sprite right 
             {
-                if (Position.X < _viewport.Width - 30)
-                    Position.X += 3;                         
+                if (Position.X < _viewport.Width - 65)
+                    Position.X += 3;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.A)) // moves the sprite left 
             {
-                if (Position.X >= 10)
-                    Position.X -= 3;                         
+                if (Position.X >= -26)
+                    Position.X -= 3;
             }
+
+
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, Position, Color.White);
+
+
         }
     }
 }
