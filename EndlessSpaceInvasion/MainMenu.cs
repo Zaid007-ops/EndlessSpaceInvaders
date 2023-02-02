@@ -6,13 +6,9 @@ namespace EndlessSpaceInvasion
 {
     public partial class MainMenu : Form
     {
-        private readonly DataStoreService _dataStoreService;
-
         public MainMenu()
         {
             InitializeComponent();
-
-            _dataStoreService = new DataStoreService();
 
             textBoxUsername.Text = RandomNameGenerator.Create();
         }
@@ -21,14 +17,15 @@ namespace EndlessSpaceInvasion
         {
             new GameForm(textBoxUsername.Text);
 
-            _dataStoreService.SaveScore(textBoxUsername.Text, 10);
-
             Show();
         }
 
         private void buttonLeaderboard_Click(object sender, EventArgs e)
         {
-            var highScores = _dataStoreService.GetHighScores();
+            var highScores = new HighScores();
+            highScores.ShowDialog();
+
+            Show();
         }
 
         private void buttonUserGuide_Click(object sender, EventArgs e)

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D9;
@@ -16,6 +17,7 @@ namespace EndlessSpaceInvasion
         private List<EnemyShipSprite> _enemyShips;
         private List<Laser> _lasers;
         private string _username;
+        private DataStoreService _dataStoreService;
 
         public Game1(string username)
         {
@@ -23,6 +25,7 @@ namespace EndlessSpaceInvasion
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            _dataStoreService = new DataStoreService();
         }
 
         protected override void Initialize()
@@ -45,6 +48,12 @@ namespace EndlessSpaceInvasion
 
         protected override void Update(GameTime gameTime)
         {
+            if(Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
+                _dataStoreService.SaveScore(_username, DateTime.Now.Second);
+                Exit();
+            }
+
             _playerOne.Update();         // updates WhiteShip sprite
 
             foreach (var enemyShip in _enemyShips)
