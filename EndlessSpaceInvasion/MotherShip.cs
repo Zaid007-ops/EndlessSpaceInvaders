@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace EndlessSpaceInvasion
 {
-    internal class Class1
+    internal class MotherShip
     {
+        // USE A* ALGORITHM FOR AI PATHFINDING
     }
 }
