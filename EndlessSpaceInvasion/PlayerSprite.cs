@@ -9,17 +9,22 @@ using System.Threading.Tasks;
 
 namespace EndlessSpaceInvasion
 {
-    internal class PlayerSprite
+    internal class PlayerSprite : IGameEntity
     {
         private Texture2D _texture;
         private Viewport _viewport;
         public Vector2 Position;
+        private bool _isVisible;
 
         public PlayerSprite(Texture2D texture, Viewport viewport)
         {
             _texture = texture;
             _viewport = viewport;
+            _isVisible = true;
         }
+
+        public string Type { get => "PlayerOne"; }
+        public bool IsVisible { get => _isVisible; set => _isVisible = value; }
 
         public void Update()
         {

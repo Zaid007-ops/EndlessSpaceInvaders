@@ -8,15 +8,14 @@ using System.Threading.Tasks;
 
 namespace EndlessSpaceInvasion
 {
-    internal class Laser 
+    internal class Laser : IGameEntity
     {
         public Texture2D Texture;
         private Viewport Viewport;
         public Vector2 Position;
         public Vector2 Velocity;
         public Vector2 Origin;
-
-        public bool IsVisible;
+        private bool _isVisible;
 
         public Laser(Texture2D _texture1, Viewport viewport, Vector2 initialPosition)
         {
@@ -24,9 +23,12 @@ namespace EndlessSpaceInvasion
             Position = initialPosition;
             Viewport = viewport;
             Velocity = new Vector2(_texture1.Width, _texture1.Height);
-            IsVisible = false;
+            IsVisible = true;
             
         }
+
+        public string Type { get => "Laser"; }
+        public bool IsVisible { get => _isVisible; set => _isVisible = value; }
 
         public void Update()
         {

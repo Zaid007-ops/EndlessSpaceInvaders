@@ -13,11 +13,9 @@ namespace EndlessSpaceInvasion
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private PlayerSprite _playerOne;
-        private HealthBar _healthBar;
-        private List<EnemyShipSprite> _enemyShips;
-        private List<Laser> _lasers;
         private string _username;
         private DataStoreService _dataStoreService;
+        private List<IGameEntity> _gameEntities;
 
         public Game1(string username)
         {
@@ -26,6 +24,7 @@ namespace EndlessSpaceInvasion
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             _dataStoreService = new DataStoreService();
+            _gameEntities = new List<IGameEntity>();
         }
 
         protected override void Initialize()
@@ -39,11 +38,12 @@ namespace EndlessSpaceInvasion
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _healthBar = CreateHealthBar();
             _playerOne = CreatePlayerOne();                       //creates playerOne
             _playerOne.Position = new Vector2(360, 400);          // sets the position at which PlayerOne spawns
-            _enemyShips = CreateEnemyShips(5);                  // creates EnemyShip
-            _lasers = new List<Laser>();
+
+            _gameEntities.Add(CreateHealthBar());
+            _gameEntities.Add(_playerOne);
+            _gameEntities.AddRange(CreateEnemyShips(5));
         }
 
         protected override void Update(GameTime gameTime)
@@ -54,20 +54,11 @@ namespace EndlessSpaceInvasion
                 Exit();
             }
 
-            _playerOne.Update();         // updates WhiteShip sprite
-
-            foreach (var enemyShip in _enemyShips)
-            {
-                enemyShip.Update();
-            }
-
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
                 Fire();
 
-            foreach(var laser in _lasers)
-            {
-                laser.Update();
-            }
+            foreach (var gameEntity in _gameEntities)
+                gameEntity.Update();
 
             base.Update(gameTime);
         }
@@ -78,28 +69,12 @@ namespace EndlessSpaceInvasion
 
             _spriteBatch.Begin();
 
-            _healthBar.Draw(_spriteBatch);
-
-            _playerOne.Draw(_spriteBatch);
-
-            foreach (Laser laser in _lasers)
-                laser.Draw(_spriteBatch);
-
-            foreach (var enemyShip in _enemyShips)
+            foreach (var gameEntity in _gameEntities.ToList())
             {
-                enemyShip.Draw(_spriteBatch);
-            }
+                gameEntity.Draw(_spriteBatch);
 
-            foreach (var laser in _lasers.ToList())
-            {
-                if (!laser.IsVisible)
-                    _lasers.Remove(laser);
-            }
-
-            foreach (var enemyShip in _enemyShips.ToList())
-            {
-                if (enemyShip.Position.Y > 400)
-                    _enemyShips.Remove(enemyShip);
+                if (!gameEntity.IsVisible)
+                    _gameEntities.Remove(gameEntity);              
             }
 
             _spriteBatch.End();
@@ -135,7 +110,7 @@ namespace EndlessSpaceInvasion
                 IsVisible = true
             };
 
-            _lasers.Add(newLaser);
+            _gameEntities.Add(newLaser);
         }
     }
 }
