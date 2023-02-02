@@ -15,9 +15,11 @@ namespace EndlessSpaceInvasion
         private HealthBar _healthBar;
         private List<EnemyShipSprite> _enemyShips;
         private List<Laser> _lasers;
+        private string _username;
 
-        public Game1()
+        public Game1(string username)
         {
+            _username = username;
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;

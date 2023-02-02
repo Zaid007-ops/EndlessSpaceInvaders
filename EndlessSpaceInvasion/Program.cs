@@ -1,4 +1,4 @@
-﻿
-using var game = new EndlessSpaceInvasion.Game1();
-game.Run();
+﻿using System.Windows.Forms;
+using EndlessSpaceInvasion;
 
+Application.Run(new MainMenu());
