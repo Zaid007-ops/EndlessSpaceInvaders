@@ -10,23 +10,35 @@ namespace EndlessSpaceInvasion
 {
     internal class Laser 
     {
-        public Texture2D texture;
+        public Texture2D Texture;
+        private Viewport Viewport;
+        public Vector2 Position;
+        public Vector2 Velocity;
+        public Vector2 Origin;
 
-        public Vector2 position;
-        public Vector2 velocity;
-        public Vector2 origin;
+        public bool IsVisible;
 
-        public bool isVisible;
-
-        public Laser(Texture2D _texture1)
+        public Laser(Texture2D _texture1, Viewport viewport, Vector2 initialPosition)
         {
-            texture = _texture1;
-            isVisible = false;
+            Texture = _texture1;
+            Position = initialPosition;
+            Viewport = viewport;
+            Velocity = new Vector2(_texture1.Width, _texture1.Height);
+            IsVisible = false;
+            
+        }
+
+        public void Update()
+        {
+            Position.Y -= 5;
+
+            if (Position.Y < 0)
+                IsVisible = false;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, null, Color.White, 0f, origin, 1f, SpriteEffects.None, 0);
+            spriteBatch.Draw(Texture, Position, null, Color.White, 0f, Origin, 1f, SpriteEffects.None, 0);
         }
     }
 }

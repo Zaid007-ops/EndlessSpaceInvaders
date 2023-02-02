@@ -43,16 +43,11 @@ namespace EndlessSpaceInvasion
                 if (Position.X >= -26)
                     Position.X -= 3;
             }
-
-
-
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, Position, Color.White);
-
-
         }
     }
 }
