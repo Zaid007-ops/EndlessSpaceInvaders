@@ -21,6 +21,7 @@ namespace EndlessSpaceInvasion
         private SpriteFont _font;
         private int _level;
         private int _score;
+        private int _numberOfEnemyShips;
 
         public Game1(string username)
         {
@@ -33,6 +34,7 @@ namespace EndlessSpaceInvasion
             _previousKey = new KeyboardState();
             _level = 1;
             _score = 0;
+            _numberOfEnemyShips = 5;
         }
 
         protected override void Initialize()
@@ -51,7 +53,7 @@ namespace EndlessSpaceInvasion
 
             _gameEntities.Add(CreateHealthBar());
             _gameEntities.Add(_playerOne);
-            _gameEntities.AddRange(CreateEnemyShips(5));
+            _gameEntities.AddRange(CreateEnemyShips(_numberOfEnemyShips));
 
             _font = Content.Load<SpriteFont>("font");
         }
@@ -65,7 +67,13 @@ namespace EndlessSpaceInvasion
                 _dataStoreService.SaveScore(_username, DateTime.Now.Second);
                 Exit();
             }
-            
+
+            if (_gameEntities.All(e => e.Type != "EnemyShip"))
+            {
+                _level += 1;
+                _gameEntities.AddRange(CreateEnemyShips(_numberOfEnemyShips * _level));
+            }
+
             foreach (var gameEntity in _gameEntities.ToList())
                 gameEntity.Update(gameTime, _gameEntities, currentKey, _previousKey);
 
