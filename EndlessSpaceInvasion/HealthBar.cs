@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace EndlessSpaceInvasion
         public string Type { get => "HealthBar"; }
         public bool IsVisible { get => _isVisible; set => _isVisible = value; }
 
-        public void Update()
+        public void Update(GameTime gameTime, List<IGameEntity> gameEntities, KeyboardState currentKey, KeyboardState previousKey)
         {
             healthRectangle.Width -= 1;
         }

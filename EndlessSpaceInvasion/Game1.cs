@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SharpDX.Direct3D9;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,6 +15,7 @@ namespace EndlessSpaceInvasion
         private string _username;
         private DataStoreService _dataStoreService;
         private List<IGameEntity> _gameEntities;
+        private KeyboardState _previousKey;
 
         public Game1(string username)
         {
@@ -25,6 +25,7 @@ namespace EndlessSpaceInvasion
             IsMouseVisible = true;
             _dataStoreService = new DataStoreService();
             _gameEntities = new List<IGameEntity>();
+            _previousKey = new KeyboardState();
         }
 
         protected override void Initialize()
@@ -48,17 +49,18 @@ namespace EndlessSpaceInvasion
 
         protected override void Update(GameTime gameTime)
         {
-            if(Keyboard.GetState().IsKeyDown(Keys.Escape))
+            var currentKey = Keyboard.GetState();
+
+            if(currentKey.IsKeyDown(Keys.Escape))
             {
                 _dataStoreService.SaveScore(_username, DateTime.Now.Second);
                 Exit();
             }
+            
+            foreach (var gameEntity in _gameEntities.ToList())
+                gameEntity.Update(gameTime, _gameEntities, currentKey, _previousKey);
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
-                Fire();
-
-            foreach (var gameEntity in _gameEntities)
-                gameEntity.Update();
+            _previousKey = currentKey;
 
             base.Update(gameTime);
         }
@@ -83,7 +85,7 @@ namespace EndlessSpaceInvasion
         }
 
         private PlayerSprite CreatePlayerOne()
-            => new(Content.Load<Texture2D>("PlayerOneShip"), _graphics.GraphicsDevice.Viewport);
+            => new(Content, _graphics.GraphicsDevice.Viewport);
 
         private HealthBar CreateHealthBar()
             => new(Content.Load<Texture2D>("HealthBar"));
@@ -94,23 +96,12 @@ namespace EndlessSpaceInvasion
 
             for (var count = 1; count <= numberOfEnemyShips; count++)
             {
-                var enemyShip = new EnemyShipSprite(Content.Load<Texture2D>("RedEnemyShip"), _graphics.GraphicsDevice.Viewport);
+                var enemyShip = new EnemyShipSprite(Content, _graphics.GraphicsDevice.Viewport);
 
                 enemyShips.Add(enemyShip);
             }
 
             return enemyShips;
-        }
-
-        private void Fire()
-        {
-            var newLaser = new Laser(Content.Load<Texture2D>("LazerBeam"), _graphics.GraphicsDevice.Viewport, _playerOne.Position)
-            {
-                Position = _playerOne.Position,
-                IsVisible = true
-            };
-
-            _gameEntities.Add(newLaser);
         }
     }
 }

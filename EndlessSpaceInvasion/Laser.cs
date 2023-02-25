@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
+using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EndlessSpaceInvasion
 {
@@ -13,14 +10,16 @@ namespace EndlessSpaceInvasion
         public Texture2D Texture;
         private Viewport Viewport;
         public Vector2 Position;
+        private float _directionOfTravel;
         public Vector2 Velocity;
         public Vector2 Origin;
         private bool _isVisible;
 
-        public Laser(Texture2D _texture1, Viewport viewport, Vector2 initialPosition)
+        public Laser(Texture2D _texture1, Viewport viewport, Vector2 initialPosition, float directionOfTravel)
         {
             Texture = _texture1;
             Position = initialPosition;
+            _directionOfTravel = directionOfTravel;
             Viewport = viewport;
             Velocity = new Vector2(_texture1.Width, _texture1.Height);
             IsVisible = true;
@@ -30,9 +29,9 @@ namespace EndlessSpaceInvasion
         public string Type { get => "Laser"; }
         public bool IsVisible { get => _isVisible; set => _isVisible = value; }
 
-        public void Update()
+        public void Update(GameTime gameTime, List<IGameEntity> gameEntities, KeyboardState currentKey, KeyboardState previousKey)
         {
-            Position.Y -= 5;
+            Position.Y += _directionOfTravel;
 
             if (Position.Y < 0)
                 IsVisible = false;

@@ -1,24 +1,24 @@
 ﻿using Microsoft.Xna.Framework;                                  // needed for the Vector2
 using Microsoft.Xna.Framework.Graphics;                         // needed for the texture 
 using Microsoft.Xna.Framework.Input;                            // needed for Keyboard.GetState() to work
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Content;
+using Color = Microsoft.Xna.Framework.Color;
 
 namespace EndlessSpaceInvasion
 {
     internal class PlayerSprite : IGameEntity
     {
+        private readonly ContentManager _contentManager;
         private Texture2D _texture;
         private Viewport _viewport;
         public Vector2 Position;
         private bool _isVisible;
 
-        public PlayerSprite(Texture2D texture, Viewport viewport)
+        public PlayerSprite(ContentManager contentManager, Viewport viewport)
         {
-            _texture = texture;
+            _contentManager = contentManager;
+            _texture = contentManager.Load<Texture2D>("PlayerOneShip");
             _viewport = viewport;
             _isVisible = true;
         }
@@ -26,28 +26,38 @@ namespace EndlessSpaceInvasion
         public string Type { get => "PlayerOne"; }
         public bool IsVisible { get => _isVisible; set => _isVisible = value; }
 
-        public void Update()
+        public void Update(GameTime gameTime, List<IGameEntity> gameEntities, KeyboardState currentKey, KeyboardState previousKey)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.W)) // moves the sprite up
+            if (currentKey.IsKeyDown(Keys.W)) // moves the sprite up
             {
                 if (Position.Y >= -16)
                     Position.Y -= 3;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.S))// moves the sprite down
+            if (currentKey.IsKeyDown(Keys.S))// moves the sprite down
             {
                 if (Position.Y < _viewport.Height - 55)
                     Position.Y += 3;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.D))   // moves the sprite right 
+            if (currentKey.IsKeyDown(Keys.D))   // moves the sprite right 
             {
                 if (Position.X < _viewport.Width - 65)
                     Position.X += 3;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.A)) // moves the sprite left 
+            if (currentKey.IsKeyDown(Keys.A)) // moves the sprite left 
             {
                 if (Position.X >= -26)
                     Position.X -= 3;
             }
+
+            if (currentKey.IsKeyDown(Keys.Space) && previousKey.IsKeyUp(Keys.Space))
+                Fire(gameEntities);
+        }
+
+        private void Fire(List<IGameEntity> gameEntities)
+        {
+            var newLaser = new Laser(_contentManager.Load<Texture2D>("LazerBeam"), _viewport, Position, -5);
+
+            gameEntities.Add(newLaser);
         }
 
         public void Draw(SpriteBatch spriteBatch)
