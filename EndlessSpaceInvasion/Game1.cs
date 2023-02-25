@@ -100,7 +100,7 @@ namespace EndlessSpaceInvasion
             => new(Content, _graphics.GraphicsDevice.Viewport);
 
         private HealthBar CreateHealthBar()
-            => new(Content.Load<Texture2D>("HealthBar"));
+            => new(Content.Load<Texture2D>("HealthBar"), _graphics.GraphicsDevice.Viewport);
 
         private List<EnemyShipSprite> CreateEnemyShips(int numberOfEnemyShips)
         {

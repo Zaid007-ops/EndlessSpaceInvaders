@@ -16,10 +16,10 @@ namespace EndlessSpaceInvasion
         private Rectangle healthRectangle;          //Image of the healthbar
         private bool _isVisible;
 
-        public HealthBar(Texture2D texture)
+        public HealthBar(Texture2D texture, Viewport viewport)
         {
             healthTexture = texture;
-            healthPosition = new Vector2(50, 30);                       //position of the health bar
+            healthPosition = new Vector2(viewport.Width - 100, viewport.Height - 40);                       //position of the health bar
             healthRectangle = new Rectangle(10, 10, healthTexture.Width, healthTexture.Height);    // creates healthbar
             _isVisible = true;
         }
@@ -29,7 +29,7 @@ namespace EndlessSpaceInvasion
 
         public void Update(GameTime gameTime, List<IGameEntity> gameEntities, KeyboardState currentKey, KeyboardState previousKey)
         {
-            healthRectangle.Width -= 1;
+            //healthRectangle.Width -= 1;
         }
 
         public void Draw(SpriteBatch spriteBatch)
