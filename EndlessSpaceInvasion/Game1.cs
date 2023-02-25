@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Linq;
+using System.Drawing;
+using Color = Microsoft.Xna.Framework.Color;
 
 namespace EndlessSpaceInvasion
 {
@@ -16,6 +18,9 @@ namespace EndlessSpaceInvasion
         private DataStoreService _dataStoreService;
         private List<IGameEntity> _gameEntities;
         private KeyboardState _previousKey;
+        private SpriteFont _font;
+        private int _level;
+        private int _score;
 
         public Game1(string username)
         {
@@ -26,6 +31,8 @@ namespace EndlessSpaceInvasion
             _dataStoreService = new DataStoreService();
             _gameEntities = new List<IGameEntity>();
             _previousKey = new KeyboardState();
+            _level = 1;
+            _score = 0;
         }
 
         protected override void Initialize()
@@ -45,6 +52,8 @@ namespace EndlessSpaceInvasion
             _gameEntities.Add(CreateHealthBar());
             _gameEntities.Add(_playerOne);
             _gameEntities.AddRange(CreateEnemyShips(5));
+
+            _font = Content.Load<SpriteFont>("font");
         }
 
         protected override void Update(GameTime gameTime)
@@ -78,6 +87,9 @@ namespace EndlessSpaceInvasion
                 if (!gameEntity.IsVisible)
                     _gameEntities.Remove(gameEntity);              
             }
+
+            _spriteBatch.DrawString(_font, $"Level: {_level}", new Vector2(10, 10), Color.Green);
+            _spriteBatch.DrawString(_font, $"Score: {_score}", new Vector2(10, _graphics.GraphicsDevice.Viewport.Height - 50), Color.Green);
 
             _spriteBatch.End();
 
