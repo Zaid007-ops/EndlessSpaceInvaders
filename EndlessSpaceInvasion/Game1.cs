@@ -14,6 +14,7 @@ namespace EndlessSpaceInvasion
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private PlayerSprite _playerOne;
+       //Texture2D _motherShip;
         private string _username;
         private DataStoreService _dataStoreService;
         private List<IGameEntity> _gameEntities;
@@ -32,7 +33,7 @@ namespace EndlessSpaceInvasion
             _dataStoreService = new DataStoreService();
             _gameEntities = new List<IGameEntity>();
             _previousKey = new KeyboardState();
-            _level = 1;
+            _level = 1;  
             _score = 0;
             _numberOfEnemyShips = 5;
         }
@@ -50,6 +51,8 @@ namespace EndlessSpaceInvasion
 
             _playerOne = CreatePlayerOne();                       //creates playerOne
             _playerOne.Position = new Vector2(360, 400);          // sets the position at which PlayerOne spawns
+
+           // _motherShip = this.Content.Load<Texture2D>("MotherShip");
 
             _gameEntities.Add(CreateHealthBar());
             _gameEntities.Add(_playerOne);
@@ -95,6 +98,8 @@ namespace EndlessSpaceInvasion
                 if (!gameEntity.IsVisible)
                     _gameEntities.Remove(gameEntity);              
             }
+
+           // _spriteBatch.DrawString(_motherShip, new Vector2(0, 0));
 
             _spriteBatch.DrawString(_font, $"Level: {_level}", new Vector2(10, 10), Color.Green);
             _spriteBatch.DrawString(_font, $"Score: {_score}", new Vector2(10, _graphics.GraphicsDevice.Viewport.Height - 50), Color.Green);
