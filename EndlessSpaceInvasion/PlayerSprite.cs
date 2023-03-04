@@ -1,7 +1,9 @@
-﻿using Microsoft.Xna.Framework;                                  // needed for the Vector2
+﻿using System;
+using Microsoft.Xna.Framework;                                  // needed for the Vector2
 using Microsoft.Xna.Framework.Graphics;                         // needed for the texture 
 using Microsoft.Xna.Framework.Input;                            // needed for Keyboard.GetState() to work
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework.Content;
 using Color = Microsoft.Xna.Framework.Color;
 
@@ -25,8 +27,8 @@ namespace EndlessSpaceInvasion
 
         public string Type { get => "PlayerOne"; }
         public bool IsVisible { get => _isVisible; set => _isVisible = value; }
-
         public bool IsEnemy => false;
+        public Rectangle Boundary { get => new((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height); }
 
         public void Update(GameTime gameTime, List<IGameEntity> gameEntities, KeyboardState currentKey, KeyboardState previousKey)
         {
@@ -53,6 +55,11 @@ namespace EndlessSpaceInvasion
 
             if (currentKey.IsKeyDown(Keys.Space) && previousKey.IsKeyUp(Keys.Space))
                 Fire(gameEntities);
+
+            if (gameEntities.Any(e => e.Boundary.Intersects(Boundary) && (e.IsEnemy || e.Type == "Laser")))
+            {
+                Console.WriteLine("Collision");
+            }
         }
 
         private void Fire(List<IGameEntity> gameEntities)

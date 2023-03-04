@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpDX;
 using Color = Microsoft.Xna.Framework.Color;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Viewport = Microsoft.Xna.Framework.Graphics.Viewport;
 
@@ -23,8 +24,8 @@ namespace EndlessSpaceInvasion
 
         public string Type { get => "EnemyShip"; }
         public bool IsVisible { get => _isVisible; set => _isVisible = value; }
-
         public bool IsEnemy => true;
+        public Rectangle Boundary { get => new((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height); }
 
         public EnemyShipSprite(ContentManager contentManager, Viewport viewport)
         {

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Color = Microsoft.Xna.Framework.Color;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Viewport = Microsoft.Xna.Framework.Graphics.Viewport;
 
@@ -27,6 +28,7 @@ namespace EndlessSpaceInvasion
         public string Type { get => "BlueShip"; }
         public bool IsVisible { get => _isVisible; set => _isVisible = value; }
         public bool IsEnemy { get => true; }
+        public Rectangle Boundary { get => new((int) Position.X, (int)Position.Y, _texture.Width, _texture.Height); }
 
         public BlueShip(ContentManager contentManager, Viewport viewport)
         {

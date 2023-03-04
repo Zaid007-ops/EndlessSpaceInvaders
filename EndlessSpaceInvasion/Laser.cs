@@ -28,8 +28,8 @@ namespace EndlessSpaceInvasion
 
         public string Type { get => "Laser"; }
         public bool IsVisible { get => _isVisible; set => _isVisible = value; }
-
         public bool IsEnemy => false;
+        public Rectangle Boundary { get => new((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height); }
 
         public void Update(GameTime gameTime, List<IGameEntity> gameEntities, KeyboardState currentKey, KeyboardState previousKey)
         {

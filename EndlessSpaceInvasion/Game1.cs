@@ -36,8 +36,8 @@ namespace EndlessSpaceInvasion
             _previousKey = new KeyboardState();
             _level = 1;  
             _score = 0;
-            _numberOfEnemyShips = 5;
-            _numberOfBlueShips = 2;
+            _numberOfEnemyShips = 1;
+            _numberOfBlueShips = 1;
         }
 
         protected override void Initialize()
