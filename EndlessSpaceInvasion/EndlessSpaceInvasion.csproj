@@ -12,15 +12,20 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Content\BlueShip.png" />
     <None Remove="Content\Content.mgcb" />
     <None Remove="Content\font.spritefont" />
     <None Remove="Content\HealthBar.png" />
     <None Remove="Content\LazerBeam.png" />
+    <None Remove="Content\MotherShip.png" />
     <None Remove="Content\PlayerOneShip.png" />
     <None Remove="Content\RedEnemyShip.png" />
     <None Remove="Content\UserGuide.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\BlueShip.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Content.mgcb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -31,6 +36,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\LazerBeam.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\MotherShip.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\PlayerOneShip.png">
