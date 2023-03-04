@@ -37,6 +37,7 @@ namespace EndlessSpaceInvasion
             _level = 1;  
             _score = 0;
             _numberOfEnemyShips = 5;
+            _numberOfBlueShips = 2;
         }
 
         protected override void Initialize()
@@ -57,8 +58,7 @@ namespace EndlessSpaceInvasion
 
             _gameEntities.Add(CreateHealthBar());
             _gameEntities.Add(_playerOne);
-            _gameEntities.AddRange(CreateEnemyShips(_numberOfEnemyShips));
-            _gameEntities.AddRange(CreateBlueShips(_numberOfBlueShips));
+            _gameEntities.AddRange(CreateEnemyShips(_numberOfEnemyShips, _numberOfBlueShips));
 
             _font = Content.Load<SpriteFont>("font");
         }
@@ -76,7 +76,7 @@ namespace EndlessSpaceInvasion
             if (_gameEntities.All(e => !e.IsEnemy))
             {
                 _level += 1;
-                _gameEntities.AddRange(CreateEnemyShips(_numberOfEnemyShips * _level));
+                _gameEntities.AddRange(CreateEnemyShips(_numberOfEnemyShips * _level, _numberOfBlueShips * _level));
             }
 
             foreach (var gameEntity in _gameEntities.ToList())
@@ -117,32 +117,25 @@ namespace EndlessSpaceInvasion
         private HealthBar CreateHealthBar()
             => new(Content.Load<Texture2D>("HealthBar"), _graphics.GraphicsDevice.Viewport);
 
-        private List<EnemyShipSprite> CreateEnemyShips(int numberOfEnemyShips)
+        private List<IGameEntity> CreateEnemyShips(int numberOfEnemyShips, int numberOfBlueEnemyShips)
         {
-            var enemyShips = new List<EnemyShipSprite>();
+            var enemies = new List<IGameEntity>();
 
             for (var count = 1; count <= numberOfEnemyShips; count++)
             {
                 var enemyShip = new EnemyShipSprite(Content, _graphics.GraphicsDevice.Viewport);
 
-                enemyShips.Add(enemyShip);
+                enemies.Add(enemyShip);
             }
 
-            return enemyShips;
-        }
-
-        private List<BlueShip> CreateBlueShips(int numberOfBlueShips)
-        {
-            var blueShips = new List<BlueShip>();
-
-            for (var count = 1; count <= numberOfBlueShips; count++)
+            for (var count = 1; count <= numberOfBlueEnemyShips; count++)
             {
-                var blueShip = new BlueShip(Content, _graphics.GraphicsDevice.Viewport);
+                var enemyShip = new BlueShip(Content, _graphics.GraphicsDevice.Viewport);
 
-                blueShips.Add(blueShip);
+                enemies.Add(enemyShip);
             }
 
-            return blueShips;
+            return enemies;
         }
     }
 }

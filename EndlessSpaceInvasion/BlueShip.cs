@@ -21,7 +21,7 @@ namespace EndlessSpaceInvasion
         private readonly Viewport _viewport;
         public Vector2 Position;
         private bool _isVisible;
-        private const float RateOfSpeed = 0.7f;
+        private const float RateOfSpeed = 0.9f;
         private float _timeSinceLastShot;
 
         public string Type { get => "BlueShip"; }
@@ -31,22 +31,19 @@ namespace EndlessSpaceInvasion
         public BlueShip(ContentManager contentManager, Viewport viewport)
         {
             _contentManager = contentManager;
-            _texture = contentManager.Load<Texture2D>("RedEnemyShip");
+            _texture = contentManager.Load<Texture2D>("BlueShip");
             _viewport = viewport;
             _isVisible = true;
             _timeSinceLastShot = 2;
 
-            Position = new Vector2(GenerateRandomXPosition(viewport), GenerateRandomYPosition());
+            Position = new Vector2(GenerateRandomXPosition(), GenerateRandomYPosition());
         }
 
         public void Update(GameTime gameTime, List<IGameEntity> gameEntities, KeyboardState currentKey, KeyboardState previousKey)
         {
-            if (Position.X > _viewport.Height)
-                Position.X = 0;
-
             Position.X += RateOfSpeed;
 
-            if (Position.X > _viewport.Height)
+            if (Position.X > _viewport.Width)
                 _isVisible = false;
 
             if (_timeSinceLastShot > 0)
@@ -64,11 +61,11 @@ namespace EndlessSpaceInvasion
             spriteBatch.Draw(_texture, Position, Color.White);
         }
 
-        private static float GenerateRandomXPosition(Viewport viewport)
-            => new Random().NextFloat(10, viewport.Width - 10);
+        private static float GenerateRandomXPosition()
+            => new Random().NextFloat(-400, -50);
 
         private static float GenerateRandomYPosition()
-            => new Random().NextFloat(50, 0);
+            => new Random().NextFloat(0, 100);
 
         private void Fire(List<IGameEntity> gameEntities)
         {

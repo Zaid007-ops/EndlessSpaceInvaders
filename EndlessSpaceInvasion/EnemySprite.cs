@@ -18,7 +18,7 @@ namespace EndlessSpaceInvasion
         private readonly Viewport _viewport;
         public Vector2 Position;
         private bool _isVisible;
-        private const float RateOfSpeed = 0.7f;
+        private const float RateOfSpeed = 0.5f;
         private float _timeSinceLastShot;
 
         public string Type { get => "EnemyShip"; }
@@ -54,7 +54,7 @@ namespace EndlessSpaceInvasion
             }
 
             Fire(gameEntities);
-            _timeSinceLastShot = 2; // reset bullet timer
+            _timeSinceLastShot = 6; // reset bullet timer
         }
 
         public void Draw(SpriteBatch spriteBatch)
