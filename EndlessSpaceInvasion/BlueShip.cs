@@ -26,6 +26,7 @@ namespace EndlessSpaceInvasion
 
         public string Type { get => "BlueShip"; }
         public bool IsVisible { get => _isVisible; set => _isVisible = value; }
+        public bool IsEnemy { get => true; }
 
         public BlueShip(ContentManager contentManager, Viewport viewport)
         {

@@ -24,6 +24,8 @@ namespace EndlessSpaceInvasion
         public string Type { get => "EnemyShip"; }
         public bool IsVisible { get => _isVisible; set => _isVisible = value; }
 
+        public bool IsEnemy => true;
+
         public EnemyShipSprite(ContentManager contentManager, Viewport viewport)
         {
             _contentManager = contentManager;

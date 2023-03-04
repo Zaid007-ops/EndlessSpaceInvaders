@@ -26,6 +26,8 @@ namespace EndlessSpaceInvasion
         public string Type { get => "PlayerOne"; }
         public bool IsVisible { get => _isVisible; set => _isVisible = value; }
 
+        public bool IsEnemy => false;
+
         public void Update(GameTime gameTime, List<IGameEntity> gameEntities, KeyboardState currentKey, KeyboardState previousKey)
         {
             if (currentKey.IsKeyDown(Keys.W)) // moves the sprite up
