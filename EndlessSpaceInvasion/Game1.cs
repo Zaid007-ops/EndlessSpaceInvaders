@@ -25,13 +25,13 @@ namespace EndlessSpaceInvasion
         private int _numberOfEnemyShips;
         private int _numberOfBlueShips;
 
-        public Game1(string username)
+        public Game1(DataStoreService dataStoreService, string username)
         {
             _username = username;
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            _dataStoreService = new DataStoreService();
+            _dataStoreService = dataStoreService;
             _gameEntities = new List<IGameEntity>();
             _previousKey = new KeyboardState();
             _level = 1;  

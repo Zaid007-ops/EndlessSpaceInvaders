@@ -1,4 +1,6 @@
 ﻿using System.Windows.Forms;
 using EndlessSpaceInvasion;
 
-Application.Run(new MainMenu());
+var dataStoreService = new DataStoreService();
+
+Application.Run(new MainMenu(dataStoreService));

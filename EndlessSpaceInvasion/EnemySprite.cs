@@ -58,9 +58,7 @@ namespace EndlessSpaceInvasion
         }
 
         public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(_texture, Position, Color.White);
-        }
+            => spriteBatch.Draw(_texture, Position, Color.White);
 
         private static float GenerateRandomXPosition(Viewport viewport)
             => new Random().NextFloat(10, viewport.Width - 10);

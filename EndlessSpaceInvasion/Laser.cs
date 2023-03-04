@@ -8,7 +8,7 @@ namespace EndlessSpaceInvasion
     internal class Laser : IGameEntity
     {
         public Texture2D Texture;
-        private Viewport Viewport;
+        private Viewport _viewport;
         public Vector2 Position;
         private float _directionOfTravel;
         public Vector2 Velocity;
@@ -20,7 +20,7 @@ namespace EndlessSpaceInvasion
             Texture = _texture1;
             Position = initialPosition;
             _directionOfTravel = directionOfTravel;
-            Viewport = viewport;
+            _viewport = viewport;
             Velocity = new Vector2(_texture1.Width, _texture1.Height);
             IsVisible = true;
             

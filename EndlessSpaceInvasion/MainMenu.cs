@@ -1,13 +1,16 @@
 ﻿using System;
-using System.Data.SQLite;
 using System.Windows.Forms;
 
 namespace EndlessSpaceInvasion
 {
     public partial class MainMenu : Form
     {
-        public MainMenu()
+        private readonly DataStoreService _dataStoreService;
+
+        public MainMenu(DataStoreService dataStoreService)
         {
+            _dataStoreService = dataStoreService;
+
             InitializeComponent();
 
             textBoxUsername.Text = RandomNameGenerator.Create();
@@ -15,14 +18,14 @@ namespace EndlessSpaceInvasion
 
         private void buttonPlay_Click(object sender, EventArgs e)
         {
-            new GameForm(textBoxUsername.Text);
+            new GameForm(_dataStoreService, textBoxUsername.Text);
 
             Show();
         }
 
         private void buttonLeaderboard_Click(object sender, EventArgs e)
         {
-            var highScores = new HighScores();
+            var highScores = new HighScores(_dataStoreService);
             highScores.ShowDialog();
 
             Show();
