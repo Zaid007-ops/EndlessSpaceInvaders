@@ -90,11 +90,11 @@ namespace EndlessSpaceInvasion
             }
         }
 
-        public List<HighScore> GetHighScores()
+        public List<HighScore> GetHighScores(string sort, int limit)
         {
             var highscores = new List<HighScore>();
 
-            var query = $"SELECT Id, Username, HighScore, Created FROM {TableName} ORDER BY HighScore DESC LIMIT 10";
+            var query = $"SELECT Id, Username, HighScore, Created FROM {TableName} ORDER BY HighScore {sort} LIMIT {limit}";
 
             using (var conn = new SQLiteConnection(ConnectionString))
             using (var command = new SQLiteCommand(query, conn))
