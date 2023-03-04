@@ -5,20 +5,20 @@ namespace EndlessSpaceInvasion
 {
     public partial class GameForm : Form
     {
-        public GameForm(string username)
+        public GameForm(DataStoreService dataStoreService, string username)
         {
             InitializeComponent();
 
-            LoadGame(username);
+            LoadGame(dataStoreService, username);
         }
 
-        private static void LoadGame(string username)
+        private static void LoadGame(DataStoreService dataStoreService, string username)
         {
             var thread = new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
 
-                var game = new Game1(username);
+                var game = new Game1(dataStoreService, username);
                 game.Run();
             });
 
