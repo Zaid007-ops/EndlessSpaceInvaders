@@ -69,7 +69,7 @@ namespace EndlessSpaceInvasion
 
         private void Fire(List<IGameEntity> gameEntities)
         {
-            var texture = _contentManager.Load<Texture2D>("LazerBeam");
+            var texture = _contentManager.Load<Texture2D>("EnemyLaser");
 
             var bulletPosition = Position;
             bulletPosition.X -= 3;
