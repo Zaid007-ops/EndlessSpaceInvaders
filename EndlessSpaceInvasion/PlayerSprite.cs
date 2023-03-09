@@ -64,7 +64,7 @@ namespace EndlessSpaceInvasion
 
         private void Fire(List<IGameEntity> gameEntities)
         {
-            var newLaser = new Laser(_contentManager.Load<Texture2D>("EnemyLaser"), _viewport, Position, -5);
+            var newLaser = new Laser(_contentManager.Load<Texture2D>("PlayerLaser"), _viewport, Position, -5);
 
             gameEntities.Add(newLaser);
         }
