@@ -18,11 +18,13 @@ namespace EndlessSpaceInvasion
             Position = new Vector2(viewport.Width - 100, viewport.Height - 40);                       //position of the health bar
             healthRectangle = new Rectangle(10, 10, Texture.Width, Texture.Height);    // creates healthbar
             _isVisible = true;
+            Health = 10;
         }
 
         public string Type { get => "HealthBar"; }
         public bool IsVisible { get => _isVisible; set => _isVisible = value; }
         public bool IsEnemy => false;
+        public int Health { get; set; }
         public Rectangle Boundary { get => new((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height); }
 
         public void Update(GameTime gameTime, List<IGameEntity> gameEntities, KeyboardState currentKey, KeyboardState previousKey)

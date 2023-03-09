@@ -25,6 +25,7 @@ namespace EndlessSpaceInvasion
         public string Type { get => "EnemyShip"; }
         public bool IsVisible { get => _isVisible; set => _isVisible = value; }
         public bool IsEnemy => true;
+        public int Health { get; set; }
         public Rectangle Boundary { get => new((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height); }
 
         public EnemyShipSprite(ContentManager contentManager, Viewport viewport)
@@ -35,17 +36,15 @@ namespace EndlessSpaceInvasion
             _isVisible = true;
             _timeSinceLastShot = 2;
 
+            Health = 1;
             Position = new Vector2(GenerateRandomXPosition(viewport), GenerateRandomYPosition());
         }
 
         public void Update(GameTime gameTime, List<IGameEntity> gameEntities, KeyboardState currentKey, KeyboardState previousKey)
         {
-            if (Position.Y > _viewport.Height)
-                Position.Y = 0;
-
             Position.Y += RateOfSpeed;
 
-            if (Position.Y > _viewport.Height)
+            if (IsSpriteOffTheScreen() || HealthChecker.IsDead(Health))
                 _isVisible = false;
 
             if (_timeSinceLastShot > 0)
@@ -55,6 +54,7 @@ namespace EndlessSpaceInvasion
             }
 
             Fire(gameEntities);
+
             _timeSinceLastShot = 6; // reset bullet timer
         }
 
@@ -75,9 +75,12 @@ namespace EndlessSpaceInvasion
             bulletPosition.X -= 3;
             bulletPosition.Y += 9;
 
-            var newLaser = new Laser(texture, _viewport, bulletPosition, 2);
+            var newLaser = new EnemyLaser(texture, _viewport, bulletPosition, 2);
 
             gameEntities.Add(newLaser);
         }
+
+        private bool IsSpriteOffTheScreen()
+            => Position.Y > _viewport.Height;
     }
 }

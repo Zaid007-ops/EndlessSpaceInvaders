@@ -23,11 +23,13 @@ namespace EndlessSpaceInvasion
             _texture = contentManager.Load<Texture2D>("PlayerOneShip");
             _viewport = viewport;
             _isVisible = true;
+            Health = 10;
         }
 
         public string Type { get => "PlayerOne"; }
         public bool IsVisible { get => _isVisible; set => _isVisible = value; }
         public bool IsEnemy => false;
+        public int Health { get; set; }
         public Rectangle Boundary { get => new((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height); }
 
         public void Update(GameTime gameTime, List<IGameEntity> gameEntities, KeyboardState currentKey, KeyboardState previousKey)
@@ -56,15 +58,20 @@ namespace EndlessSpaceInvasion
             if (currentKey.IsKeyDown(Keys.Space) && previousKey.IsKeyUp(Keys.Space))
                 Fire(gameEntities);
 
-            if (gameEntities.Any(e => e.Boundary.Intersects(Boundary) && (e.IsEnemy || e.Type == "Laser")))
+            if (gameEntities.Any(e => e.Boundary.Intersects(Boundary) && (e.IsEnemy || e.Type == "EnemyLaser")))
             {
-                Console.WriteLine("Collision");
+                var collidedEntities = gameEntities
+                    .Where(e => e.Boundary.Intersects(Boundary) && (e.IsEnemy || e.Type == "EnemyLaser"))
+                    .ToList();
+
+                Health -= 1;
+                collidedEntities.ForEach(e => e.Health -= 1);
             }
         }
 
         private void Fire(List<IGameEntity> gameEntities)
         {
-            var newLaser = new Laser(_contentManager.Load<Texture2D>("PlayerLaser"), _viewport, Position, -5);
+            var newLaser = new PlayerLaser(_contentManager.Load<Texture2D>("PlayerLaser"), _viewport, Position, -5);
 
             gameEntities.Add(newLaser);
         }

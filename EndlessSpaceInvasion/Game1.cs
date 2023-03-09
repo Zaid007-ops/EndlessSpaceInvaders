@@ -67,7 +67,7 @@ namespace EndlessSpaceInvasion
         {
             var currentKey = Keyboard.GetState();
 
-            if(currentKey.IsKeyDown(Keys.Escape))
+            if(currentKey.IsKeyDown(Keys.Escape) || IsPlayerOneDead())
             {
                 _dataStoreService.SaveScore(_username, DateTime.Now.Second);
                 Exit();
@@ -137,5 +137,8 @@ namespace EndlessSpaceInvasion
 
             return enemies;
         }
+
+        private bool IsPlayerOneDead()
+            => HealthChecker.IsDead(_gameEntities.First(e => e.Type == "PlayerOne").Health);
     }
 }

@@ -19,6 +19,7 @@ namespace EndlessSpaceInvasion
         public string Type { get => "MotherShip"; }
         public bool IsVisible { get => _isVisible; set => _isVisible = value; }
         public bool IsEnemy => true;
+        public int Health { get; set; }
         public Rectangle Boundary { get => new((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height); }
 
         public MotherShip(ContentManager contentManager, Viewport viewport)
@@ -27,6 +28,7 @@ namespace EndlessSpaceInvasion
             _contentManager = contentManager;
             _texture = contentManager.Load<Texture2D>("RedEnemyShip");
             _viewport = viewport;
+            Health = 8;
         }
 
         public void Draw(SpriteBatch spriteBatch)

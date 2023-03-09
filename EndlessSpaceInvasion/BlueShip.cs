@@ -28,6 +28,7 @@ namespace EndlessSpaceInvasion
         public string Type { get => "BlueShip"; }
         public bool IsVisible { get => _isVisible; set => _isVisible = value; }
         public bool IsEnemy { get => true; }
+        public int Health { get; set; }
         public Rectangle Boundary { get => new((int) Position.X, (int)Position.Y, _texture.Width, _texture.Height); }
 
         public BlueShip(ContentManager contentManager, Viewport viewport)
@@ -38,6 +39,7 @@ namespace EndlessSpaceInvasion
             _isVisible = true;
             _timeSinceLastShot = 2;
 
+            Health = 2;
             Position = new Vector2(GenerateRandomXPosition(), GenerateRandomYPosition());
         }
 
@@ -45,7 +47,7 @@ namespace EndlessSpaceInvasion
         {
             Position.X += RateOfSpeed;
 
-            if (Position.X > _viewport.Width)
+            if (IsSpriteOffTheScreen() || HealthChecker.IsDead(Health))
                 _isVisible = false;
 
             if (_timeSinceLastShot > 0)
@@ -77,10 +79,12 @@ namespace EndlessSpaceInvasion
             bulletPosition.X -= 3;
             bulletPosition.Y += 9;
 
-            var newLaser = new Laser(texture, _viewport, bulletPosition, 2);
+            var newLaser = new EnemyLaser(texture, _viewport, bulletPosition, 2);
 
             gameEntities.Add(newLaser);
         }
 
+        private bool IsSpriteOffTheScreen()
+            => Position.X > _viewport.Width;
     }
 }
