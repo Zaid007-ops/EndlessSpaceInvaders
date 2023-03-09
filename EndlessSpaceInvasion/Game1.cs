@@ -69,7 +69,7 @@ namespace EndlessSpaceInvasion
 
             if(currentKey.IsKeyDown(Keys.Escape) || IsPlayerOneDead())
             {
-                _dataStoreService.SaveScore(_username, DateTime.Now.Second);
+                //_dataStoreService.SaveScore(_username, DateTime.Now.Second);
                 Exit();
             }
 
@@ -82,9 +82,21 @@ namespace EndlessSpaceInvasion
             foreach (var gameEntity in _gameEntities.ToList())
                 gameEntity.Update(gameTime, _gameEntities, currentKey, _previousKey);
 
+            var collidedEntities = CollisionDetectionService.DetectCollisions(_gameEntities);                
+
+            collidedEntities.ForEach(e => e.Health -= 1);
+            collidedEntities.Where(e => e.IsEnemy).ToList().ForEach(e => _score += 10);
+            collidedEntities.Where(e => e.Type == "PlayerOne").ToList().ForEach(e => PlayerOneHit());
+
             _previousKey = currentKey;
 
             base.Update(gameTime);
+        }
+
+        private void PlayerOneHit()
+        {
+            var healthBar = _gameEntities.Single(e => e.Type == "HealthBar");
+            healthBar.Health -= 1;
         }
 
         protected override void Draw(GameTime gameTime)

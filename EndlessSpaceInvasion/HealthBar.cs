@@ -29,7 +29,7 @@ namespace EndlessSpaceInvasion
 
         public void Update(GameTime gameTime, List<IGameEntity> gameEntities, KeyboardState currentKey, KeyboardState previousKey)
         {
-            //healthRectangle.Width -= 1;
+            healthRectangle.Width = Texture.Width * Health;
         }
 
         public void Draw(SpriteBatch spriteBatch)

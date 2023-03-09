@@ -57,16 +57,6 @@ namespace EndlessSpaceInvasion
 
             if (currentKey.IsKeyDown(Keys.Space) && previousKey.IsKeyUp(Keys.Space))
                 Fire(gameEntities);
-
-            if (gameEntities.Any(e => e.Boundary.Intersects(Boundary) && (e.IsEnemy || e.Type == "EnemyLaser")))
-            {
-                var collidedEntities = gameEntities
-                    .Where(e => e.Boundary.Intersects(Boundary) && (e.IsEnemy || e.Type == "EnemyLaser"))
-                    .ToList();
-
-                Health -= 1;
-                collidedEntities.ForEach(e => e.Health -= 1);
-            }
         }
 
         private void Fire(List<IGameEntity> gameEntities)
