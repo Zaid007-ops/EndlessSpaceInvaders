@@ -13,6 +13,8 @@ namespace EndlessSpaceInvasion
         {
             if (!TableExists())
                 CreateTable();
+
+            //SQLiteDatabase.setLockingEnabled(false);
         }
 
         private static bool TableExists()
@@ -42,6 +44,8 @@ namespace EndlessSpaceInvasion
                 finally
                 {
                     conn.Close();
+                    conn.Dispose();
+                    command.Dispose();
                 }
             }
         }
@@ -62,6 +66,8 @@ namespace EndlessSpaceInvasion
                 finally
                 {
                     conn.Close();
+                    conn.Dispose();
+                    command.Dispose();
                 }
             }
         }
@@ -86,6 +92,8 @@ namespace EndlessSpaceInvasion
                 finally
                 {
                     conn.Close();
+                    conn.Dispose();
+                    command.Dispose();
                 }
             }
         }
@@ -129,6 +137,8 @@ namespace EndlessSpaceInvasion
                 finally
                 {
                     conn.Close();
+                    conn.Dispose();
+                    command.Dispose();
                 }
             }
         }

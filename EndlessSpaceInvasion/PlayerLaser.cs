@@ -26,7 +26,7 @@ namespace EndlessSpaceInvasion
             Health = 1;
         }
 
-        public string Type { get => "PlayerLaser"; }
+        public string Type { get => Constants.GameEntityTypes.PlayerLaser; }
         public bool IsVisible { get => _isVisible; set => _isVisible = value; }
         public bool IsEnemy => false;
         public int Health { get; set; }

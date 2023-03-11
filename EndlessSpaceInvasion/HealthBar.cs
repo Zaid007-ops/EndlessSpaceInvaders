@@ -21,7 +21,7 @@ namespace EndlessSpaceInvasion
             Health = 10;
         }
 
-        public string Type { get => "HealthBar"; }
+        public string Type { get => Constants.GameEntityTypes.HealthBar; }
         public bool IsVisible { get => _isVisible; set => _isVisible = value; }
         public bool IsEnemy => false;
         public int Health { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 
 namespace EndlessSpaceInvasion
 {
@@ -10,9 +11,9 @@ namespace EndlessSpaceInvasion
             var entities = new List<IGameEntity>();
 
             var enemies = gameEntities.Where(e => e.IsEnemy).ToList();
-            var lasers = gameEntities.Where(e => e.Type == "PlayerLaser").ToList();
-            var playerOne = gameEntities.Where(e => e.Type == "PlayerOne").Single();
-            var enemyLasers = gameEntities.Where(e => e.Type == "EnemyLaser").ToList();
+            var lasers = gameEntities.Where(e => e.Type == Constants.GameEntityTypes.PlayerLaser).ToList();
+            var playerOne = gameEntities.Where(e => e.Type == Constants.GameEntityTypes.PlayerOne).Single();
+            var enemyLasers = gameEntities.Where(e => e.Type == Constants.GameEntityTypes.EnemyLaser).ToList();
 
             foreach (var enemy in enemies)
             {

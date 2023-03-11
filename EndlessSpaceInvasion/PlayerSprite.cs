@@ -26,7 +26,7 @@ namespace EndlessSpaceInvasion
             Health = 10;
         }
 
-        public string Type { get => "PlayerOne"; }
+        public string Type { get => Constants.GameEntityTypes.PlayerOne; }
         public bool IsVisible { get => _isVisible; set => _isVisible = value; }
         public bool IsEnemy => false;
         public int Health { get; set; }
@@ -61,7 +61,7 @@ namespace EndlessSpaceInvasion
 
         private void Fire(List<IGameEntity> gameEntities)
         {
-            var newLaser = new PlayerLaser(_contentManager.Load<Texture2D>("PlayerLaser"), _viewport, Position, -5);
+            var newLaser = new PlayerLaser(_contentManager.Load<Texture2D>(Constants.GameEntityTypes.PlayerLaser), _viewport, Position, -5);
 
             gameEntities.Add(newLaser);
         }

@@ -16,7 +16,7 @@ namespace EndlessSpaceInvasion
         private readonly Viewport _viewport;
         public Vector2 Position;
 
-        public string Type { get => "MotherShip"; }
+        public string Type { get => Constants.GameEntityTypes.MotherShip; }
         public bool IsVisible { get => _isVisible; set => _isVisible = value; }
         public bool IsEnemy => true;
         public int Health { get; set; }

@@ -22,7 +22,7 @@ namespace EndlessSpaceInvasion
         private const float RateOfSpeed = 0.5f;
         private float _timeSinceLastShot;
 
-        public string Type { get => "EnemyShip"; }
+        public string Type { get => Constants.GameEntityTypes.EnemyShip; }
         public bool IsVisible { get => _isVisible; set => _isVisible = value; }
         public bool IsEnemy => true;
         public int Health { get; set; }
@@ -69,7 +69,7 @@ namespace EndlessSpaceInvasion
 
         private void Fire(List<IGameEntity> gameEntities)
         {
-            var texture = _contentManager.Load<Texture2D>("EnemyLaser");
+            var texture = _contentManager.Load<Texture2D>(Constants.GameEntityTypes.EnemyLaser);
 
             var bulletPosition = Position;
             bulletPosition.X -= 3;
