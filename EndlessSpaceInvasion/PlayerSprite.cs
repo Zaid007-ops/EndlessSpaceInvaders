@@ -41,17 +41,17 @@ namespace EndlessSpaceInvasion
             }
             if (currentKey.IsKeyDown(Keys.S))// moves the sprite down
             {
-                if (Position.Y < _viewport.Height - 55)
+                if (Position.Y < _viewport.Height - 40)
                     Position.Y += 3;
             }
             if (currentKey.IsKeyDown(Keys.D))   // moves the sprite right 
             {
-                if (Position.X < _viewport.Width - 65)
+                if (Position.X < _viewport.Width - 23)
                     Position.X += 3;
             }
             if (currentKey.IsKeyDown(Keys.A)) // moves the sprite left 
             {
-                if (Position.X >= -26)
+                if (Position.X >= -18)
                     Position.X -= 3;
             }
 
