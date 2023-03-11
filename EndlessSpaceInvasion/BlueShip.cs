@@ -17,7 +17,7 @@ namespace EndlessSpaceInvasion
         private readonly ContentManager _contentManager;
         private Texture2D _texture;
         private readonly Viewport _viewport;
-        public Vector2 Position;
+        public Vector2 _position;
         private bool _isVisible;
         private float _rateOfSpeed = 0.9f;
         private float _timeSinceLastShot;
@@ -27,7 +27,8 @@ namespace EndlessSpaceInvasion
         public bool IsVisible { get => _isVisible; set => _isVisible = value; }
         public bool IsEnemy { get => true; }
         public int Health { get; set; }
-        public Rectangle Boundary { get => new((int) Position.X, (int)Position.Y, _texture.Width, _texture.Height); }
+        public Rectangle Boundary { get => new((int) _position.X, (int)_position.Y, _texture.Width, _texture.Height); }
+        public Vector2 Position { get => _position; }
 
         public BlueShip(ContentManager contentManager, Viewport viewport, float speed, int currentLevel)
         {
@@ -40,12 +41,12 @@ namespace EndlessSpaceInvasion
             _rateOfSpeed = speed * currentLevel / 2;
 
             Health = 2;
-            Position = new Vector2(GenerateRandomXPosition(), GenerateRandomYPosition());
+            _position = new Vector2(GenerateRandomXPosition(), GenerateRandomYPosition());
         }
 
         public void Update(GameTime gameTime, List<IGameEntity> gameEntities, KeyboardState currentKey, KeyboardState previousKey)
         {
-            Position.X += _rateOfSpeed;
+            _position.X += _rateOfSpeed;
 
             if (IsSpriteOffTheScreen() || HealthChecker.IsDead(Health))
                 _isVisible = false;
@@ -62,7 +63,7 @@ namespace EndlessSpaceInvasion
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, Position, Color.White);
+            spriteBatch.Draw(_texture, _position, Color.White);
         }
 
         private static float GenerateRandomXPosition()
@@ -75,7 +76,7 @@ namespace EndlessSpaceInvasion
         {
             var texture = _contentManager.Load<Texture2D>(Constants.GameEntityTypes.EnemyLaser);
 
-            var bulletPosition = Position;
+            var bulletPosition = _position;
             bulletPosition.X += (float)_texture.Width / 2;
             bulletPosition.Y += _texture.Height;
 
@@ -85,6 +86,6 @@ namespace EndlessSpaceInvasion
         }
 
         private bool IsSpriteOffTheScreen()
-            => Position.X > _viewport.Width;
+            => _position.X > _viewport.Width;
     }
 }

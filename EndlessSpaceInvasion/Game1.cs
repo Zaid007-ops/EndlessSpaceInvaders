@@ -56,7 +56,7 @@ namespace EndlessSpaceInvasion
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _playerOne = CreatePlayerOne();                       //creates playerOne
-            _playerOne.Position = new Vector2(360, 400);          // sets the position at which PlayerOne spawns
+            _playerOne._position = new Vector2(360, 400);          // sets the position at which PlayerOne spawns
 
            // _motherShip = this.Content.Load<Texture2D>("MotherShip");
 
@@ -140,7 +140,7 @@ namespace EndlessSpaceInvasion
             }
 
             enemies.Add(CreateEnemy(0.7f, 0.9f, (manager, viewport, speed, level) => new MotherShip(manager, viewport, speed, level)));
-
+            
             return enemies;
         }
 

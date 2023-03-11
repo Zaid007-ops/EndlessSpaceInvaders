@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.dataGridViewHighScores = new System.Windows.Forms.DataGridView();
+            this.Username = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Points = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Level = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonFilter = new System.Windows.Forms.Button();
             this.comboBoxSort = new System.Windows.Forms.ComboBox();
             this.labelSort = new System.Windows.Forms.Label();
             this.labelLimit = new System.Windows.Forms.Label();
             this.comboBoxLimit = new System.Windows.Forms.ComboBox();
-            this.Username = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Points = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Level = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHighScores)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,18 +46,42 @@
             this.dataGridViewHighScores.AllowUserToAddRows = false;
             this.dataGridViewHighScores.AllowUserToDeleteRows = false;
             this.dataGridViewHighScores.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewHighScores.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridViewHighScores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewHighScores.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Username,
             this.Points,
             this.Level,
             this.Date});
-            this.dataGridViewHighScores.Enabled = false;
             this.dataGridViewHighScores.Location = new System.Drawing.Point(12, 42);
             this.dataGridViewHighScores.Name = "dataGridViewHighScores";
             this.dataGridViewHighScores.RowTemplate.Height = 25;
             this.dataGridViewHighScores.Size = new System.Drawing.Size(401, 450);
             this.dataGridViewHighScores.TabIndex = 0;
+            // 
+            // Username
+            // 
+            this.Username.HeaderText = "Username";
+            this.Username.Name = "Username";
+            this.Username.ReadOnly = true;
+            // 
+            // Points
+            // 
+            this.Points.HeaderText = "Points";
+            this.Points.Name = "Points";
+            this.Points.ReadOnly = true;
+            // 
+            // Level
+            // 
+            this.Level.HeaderText = "Level";
+            this.Level.Name = "Level";
+            this.Level.ReadOnly = true;
+            // 
+            // Date
+            // 
+            this.Date.HeaderText = "Date";
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
             // 
             // buttonFilter
             // 
@@ -111,30 +135,6 @@
             this.comboBoxLimit.Name = "comboBoxLimit";
             this.comboBoxLimit.Size = new System.Drawing.Size(112, 23);
             this.comboBoxLimit.TabIndex = 5;
-            // 
-            // Username
-            // 
-            this.Username.HeaderText = "Username";
-            this.Username.Name = "Username";
-            this.Username.ReadOnly = true;
-            // 
-            // Points
-            // 
-            this.Points.HeaderText = "Points";
-            this.Points.Name = "Points";
-            this.Points.ReadOnly = true;
-            // 
-            // Level
-            // 
-            this.Level.HeaderText = "Level";
-            this.Level.Name = "Level";
-            this.Level.ReadOnly = true;
-            // 
-            // Date
-            // 
-            this.Date.HeaderText = "Date";
-            this.Date.Name = "Date";
-            this.Date.ReadOnly = true;
             // 
             // HighScores
             // 

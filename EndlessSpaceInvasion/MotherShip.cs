@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using SharpDX;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Color = Microsoft.Xna.Framework.Color;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
@@ -19,7 +20,7 @@ namespace EndlessSpaceInvasion
         private Texture2D _texture;
         private readonly Viewport _viewport;
         private readonly int _currentLevel;
-        public Vector2 Position;
+        public Vector2 _position;
         private float _rateOfSpeed;
         private float _timeSinceLastShot;
 
@@ -28,6 +29,7 @@ namespace EndlessSpaceInvasion
         public bool IsEnemy => true;
         public int Health { get; set; }
         public Rectangle Boundary { get => new((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height); }
+        public Vector2 Position { get => _position; }
 
         public MotherShip(ContentManager contentManager, Viewport viewport, float speed, int currentLevel)
         {
@@ -40,20 +42,21 @@ namespace EndlessSpaceInvasion
             _timeSinceLastShot = 2;
             Health = 8;
 
-            Position = new Vector2(GenerateRandomXPosition(viewport, _texture), GenerateRandomYPosition());
+            _position = new Vector2(GenerateRandomXPosition(viewport, _texture), GenerateRandomYPosition());
         }
 
         public void Update(GameTime gameTime, List<IGameEntity> gameEntities, KeyboardState currentKey, KeyboardState previousKey)
         {
-            Position.Y += _rateOfSpeed;
+            _position.X = CalculateX(gameEntities);
+            _position.Y += _rateOfSpeed;
 
             if (HealthChecker.IsDead(Health))
                 _isVisible = false;
 
             if (IsSpriteOffTheScreen())
             {
-                Position.X = new Random().Next(30, _viewport.Width);
-                Position.Y = -10;
+                _position.X = new Random().Next(30, _viewport.Width);
+                _position.Y = -10;
             }
 
             if (_timeSinceLastShot > 0)
@@ -88,6 +91,22 @@ namespace EndlessSpaceInvasion
         private static float GenerateRandomYPosition()
             => new Random().NextFloat(-40, -400);
 
+        private IGameEntity FindPlayerOne(List<IGameEntity> gameEntities)
+            => gameEntities.Single(e => e.Type == Constants.GameEntityTypes.PlayerOne);
+        
+        private float CalculateX(List<IGameEntity> gameEntities)
+        {
+            var playerOne = FindPlayerOne(gameEntities);
+
+            var currentPosition = Position.X;
+            var playerOnePosition = playerOne.Position.X;
+            var difference = currentPosition - playerOnePosition;
+
+            return difference >= 0.0
+                ? _position.X -= _rateOfSpeed
+                : _position.X += _rateOfSpeed;
+        }
+        
         private bool IsSpriteOffTheScreen()
             => Position.Y > _viewport.Height;
     }

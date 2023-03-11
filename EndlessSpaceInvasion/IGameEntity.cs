@@ -12,6 +12,7 @@ namespace EndlessSpaceInvasion
         bool IsEnemy { get; }
         int Health { get; set; }
         Rectangle Boundary { get; }
+        Vector2 Position { get; }
         void Update(GameTime gameTime, List<IGameEntity> gameEntities, KeyboardState currentKey, KeyboardState previousKey);
         void Draw(SpriteBatch spriteBatch);
     }
