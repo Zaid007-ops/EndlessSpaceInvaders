@@ -10,14 +10,11 @@ namespace EndlessSpaceInvasion
         {
             var entities = new List<IGameEntity>();
 
-            var enemies = gameEntities.Where(e => e.IsEnemy).ToList();
-            var lasers = gameEntities.Where(e => e.Type == Constants.GameEntityTypes.PlayerLaser).ToList();
             var playerOne = gameEntities.Where(e => e.Type == Constants.GameEntityTypes.PlayerOne).Single();
-            var enemyLasers = gameEntities.Where(e => e.Type == Constants.GameEntityTypes.EnemyLaser).ToList();
 
-            foreach (var enemy in enemies)
+            foreach (var enemy in gameEntities.Where(e => e.IsEnemy).ToList())
             {
-                foreach (var laser in lasers)
+                foreach (var laser in gameEntities.Where(e => e.Type == Constants.GameEntityTypes.PlayerLaser).ToList())
                 {
                     if (enemy.Boundary.Intersects(laser.Boundary))
                     {
@@ -27,7 +24,7 @@ namespace EndlessSpaceInvasion
                 }
             }
 
-            foreach (var enemyLaser in enemyLasers)
+            foreach (var enemyLaser in gameEntities.Where(e => e.Type == Constants.GameEntityTypes.EnemyLaser).ToList())
             {
                 if (enemyLaser.Boundary.Intersects(playerOne.Boundary))
                 {

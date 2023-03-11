@@ -84,19 +84,11 @@ namespace EndlessSpaceInvasion
 
             var collidedEntities = CollisionDetectionService.DetectCollisions(_gameEntities);                
 
-            collidedEntities.ForEach(e => e.Health -= 1);
-            collidedEntities.Where(e => e.IsEnemy).ToList().ForEach(e => _score += 10);
-            collidedEntities.Where(e => e.Type == Constants.GameEntityTypes.PlayerOne).ToList().ForEach(e => PlayerOneHit());
+            HandleCollisions(collidedEntities);
 
             _previousKey = currentKey;
 
             base.Update(gameTime);
-        }
-
-        private void PlayerOneHit()
-        {
-            var healthBar = _gameEntities.Single(e => e.Type == Constants.GameEntityTypes.HealthBar);
-            healthBar.Health -= 1;
         }
 
         protected override void Draw(GameTime gameTime)
@@ -148,6 +140,27 @@ namespace EndlessSpaceInvasion
             }
 
             return enemies;
+        }
+
+        private void HandleCollisions(List<IGameEntity> gameEntities)
+        {
+            foreach (var entity in gameEntities)
+            {
+                entity.Health -= 1;
+
+                if (entity.IsEnemy)
+                    _score += 10;
+
+                if (entity.Type == Constants.GameEntityTypes.PlayerOne)
+                    UpdateHealthBar();
+            }
+        }
+
+
+        private void UpdateHealthBar()
+        {
+            var healthBar = _gameEntities.Single(e => e.Type == Constants.GameEntityTypes.HealthBar);
+            healthBar.Health -= 1;
         }
 
         private bool IsPlayerOneDead()

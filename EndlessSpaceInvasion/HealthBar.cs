@@ -11,14 +11,17 @@ namespace EndlessSpaceInvasion
         private Vector2 Position;               // position of the healthbar
         private Rectangle healthRectangle;          //Image of the healthbar
         private bool _isVisible;
+        private float _initialWidth;
+        private int _initialHealth;
 
         public HealthBar(Texture2D texture, Viewport viewport)
         {
             Texture = texture;
             Position = new Vector2(viewport.Width - 100, viewport.Height - 40);                       //position of the health bar
             healthRectangle = new Rectangle(10, 10, Texture.Width, Texture.Height);    // creates healthbar
+            Health = _initialHealth = 10;
             _isVisible = true;
-            Health = 10;
+            _initialWidth = Texture.Width;
         }
 
         public string Type { get => Constants.GameEntityTypes.HealthBar; }
@@ -29,7 +32,10 @@ namespace EndlessSpaceInvasion
 
         public void Update(GameTime gameTime, List<IGameEntity> gameEntities, KeyboardState currentKey, KeyboardState previousKey)
         {
-            healthRectangle.Width = Texture.Width * Health;
+            if (Health == 0)
+                healthRectangle.Width = 0;
+
+            healthRectangle.Width = (int)_initialWidth / _initialHealth * Health;
         }
 
         public void Draw(SpriteBatch spriteBatch)
