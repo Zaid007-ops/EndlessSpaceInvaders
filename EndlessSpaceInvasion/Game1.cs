@@ -5,9 +5,11 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
+using Microsoft.Xna.Framework.Content;
 using SharpDX;
 using Color = Microsoft.Xna.Framework.Color;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
+using Viewport = Microsoft.Xna.Framework.Graphics.Viewport;
 
 namespace EndlessSpaceInvasion
 {
@@ -38,7 +40,7 @@ namespace EndlessSpaceInvasion
             _previousKey = new KeyboardState();
             _level = 1;  
             _score = 0;
-            _numberOfEnemyShips = 1;
+            _numberOfEnemyShips = 2;
             _numberOfBlueShips = 1;
         }
 
@@ -129,23 +131,24 @@ namespace EndlessSpaceInvasion
 
             for (var count = 1; count <= numberOfEnemyShips; count++)
             {
-                var speed = new Random().NextFloat(0.5f, 1.5f);
-
-                var enemyShip = new EnemyShipSprite(Content, _graphics.GraphicsDevice.Viewport, speed, _level);
-
-                enemies.Add(enemyShip);
+                enemies.Add(CreateEnemy((manager, viewport, speed, level) => new EnemyShipSprite(manager, viewport, speed, level)));
             }
 
             for (var count = 1; count <= numberOfBlueEnemyShips; count++)
             {
-                var speed = new Random().NextFloat(0.5f, 1.5f);
-
-                var enemyShip = new BlueShip(Content, _graphics.GraphicsDevice.Viewport, speed, _level);
-
-                enemies.Add(enemyShip);
+                enemies.Add(CreateEnemy((manager, viewport, speed, level) => new BlueShip(manager, viewport, speed, level)));
             }
 
             return enemies;
+        }
+
+        private IGameEntity CreateEnemy(Func<ContentManager, Viewport, float, int, IGameEntity> createEnemy)
+        {
+            var speed = new Random().NextFloat(0.5f, 1.5f);
+
+            var enemy = createEnemy.Invoke(Content, _graphics.GraphicsDevice.Viewport, speed, _level);
+
+            return enemy;
         }
 
         private void HandleCollisions(List<IGameEntity> gameEntities)

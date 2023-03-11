@@ -60,7 +60,7 @@ namespace EndlessSpaceInvasion
             }
 
             Fire(gameEntities);
-            _timeSinceLastShot = 2; // reset bullet timer
+            _timeSinceLastShot = 0.7f; // reset bullet timer
         }
 
         public void Draw(SpriteBatch spriteBatch)

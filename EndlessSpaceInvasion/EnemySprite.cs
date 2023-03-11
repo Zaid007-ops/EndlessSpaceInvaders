@@ -57,7 +57,6 @@ namespace EndlessSpaceInvasion
             }
 
             Fire(gameEntities);
-
             _timeSinceLastShot = 6; // reset bullet timer
         }
 
