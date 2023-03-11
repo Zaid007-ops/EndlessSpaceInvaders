@@ -109,8 +109,6 @@ namespace EndlessSpaceInvasion
                     _gameEntities.Remove(gameEntity);              
             }
 
-            //_spriteBatch.DrawString(_motherShip, new Vector2(0, 0));
-
             _spriteBatch.DrawString(_font, $"Level: {_level}", new Vector2(10, 10), Color.Green);
             _spriteBatch.DrawString(_font, $"Score: {_score}", new Vector2(10, _graphics.GraphicsDevice.Viewport.Height - 50), Color.Green);
 
@@ -139,7 +137,8 @@ namespace EndlessSpaceInvasion
                 enemies.Add(CreateEnemy(0.5f, 1.5f, (manager, viewport, speed, level) => new BlueShip(manager, viewport, speed, level)));
             }
 
-            enemies.Add(CreateEnemy(0.7f, 0.9f, (manager, viewport, speed, level) => new MotherShip(manager, viewport, speed, level)));
+            if(_level % 2 == 0) // Add mothership every round 2
+                enemies.Add(CreateEnemy(0.7f, 0.9f, (manager, viewport, speed, level) => new MotherShip(manager, viewport, speed, level)));
             
             return enemies;
         }
