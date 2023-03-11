@@ -131,20 +131,22 @@ namespace EndlessSpaceInvasion
 
             for (var count = 1; count <= numberOfEnemyShips; count++)
             {
-                enemies.Add(CreateEnemy((manager, viewport, speed, level) => new EnemyShipSprite(manager, viewport, speed, level)));
+                enemies.Add(CreateEnemy(0.5f, 1.5f, (manager, viewport, speed, level) => new EnemyShipSprite(manager, viewport, speed, level)));
             }
 
             for (var count = 1; count <= numberOfBlueEnemyShips; count++)
             {
-                enemies.Add(CreateEnemy((manager, viewport, speed, level) => new BlueShip(manager, viewport, speed, level)));
+                enemies.Add(CreateEnemy(0.5f, 1.5f, (manager, viewport, speed, level) => new BlueShip(manager, viewport, speed, level)));
             }
+
+            enemies.Add(CreateEnemy(0.7f, 0.9f, (manager, viewport, speed, level) => new MotherShip(manager, viewport, speed, level)));
 
             return enemies;
         }
 
-        private IGameEntity CreateEnemy(Func<ContentManager, Viewport, float, int, IGameEntity> createEnemy)
+        private IGameEntity CreateEnemy(float speedMin, float speedMax, Func<ContentManager, Viewport, float, int, IGameEntity> createEnemy)
         {
-            var speed = new Random().NextFloat(0.5f, 1.5f);
+            var speed = new Random().NextFloat(speedMin, speedMax);
 
             var enemy = createEnemy.Invoke(Content, _graphics.GraphicsDevice.Viewport, speed, _level);
 
