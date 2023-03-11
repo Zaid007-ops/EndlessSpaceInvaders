@@ -34,12 +34,23 @@
             this.labelSort = new System.Windows.Forms.Label();
             this.labelLimit = new System.Windows.Forms.Label();
             this.comboBoxLimit = new System.Windows.Forms.ComboBox();
+            this.Username = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Points = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHighScores)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewHighScores
             // 
+            this.dataGridViewHighScores.AllowUserToAddRows = false;
+            this.dataGridViewHighScores.AllowUserToDeleteRows = false;
+            this.dataGridViewHighScores.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewHighScores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewHighScores.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Username,
+            this.Points,
+            this.Date});
+            this.dataGridViewHighScores.Enabled = false;
             this.dataGridViewHighScores.Location = new System.Drawing.Point(12, 42);
             this.dataGridViewHighScores.Name = "dataGridViewHighScores";
             this.dataGridViewHighScores.RowTemplate.Height = 25;
@@ -62,9 +73,9 @@
             this.comboBoxSort.Items.AddRange(new object[] {
             "ASC",
             "DESC"});
-            this.comboBoxSort.Location = new System.Drawing.Point(49, 13);
+            this.comboBoxSort.Location = new System.Drawing.Point(101, 13);
             this.comboBoxSort.Name = "comboBoxSort";
-            this.comboBoxSort.Size = new System.Drawing.Size(121, 23);
+            this.comboBoxSort.Size = new System.Drawing.Size(69, 23);
             this.comboBoxSort.TabIndex = 2;
             // 
             // labelSort
@@ -72,9 +83,9 @@
             this.labelSort.AutoSize = true;
             this.labelSort.Location = new System.Drawing.Point(12, 16);
             this.labelSort.Name = "labelSort";
-            this.labelSort.Size = new System.Drawing.Size(31, 15);
+            this.labelSort.Size = new System.Drawing.Size(83, 15);
             this.labelSort.TabIndex = 3;
-            this.labelSort.Text = "Sort:";
+            this.labelSort.Text = "Sort By Points:";
             // 
             // labelLimit
             // 
@@ -98,6 +109,24 @@
             this.comboBoxLimit.Name = "comboBoxLimit";
             this.comboBoxLimit.Size = new System.Drawing.Size(112, 23);
             this.comboBoxLimit.TabIndex = 5;
+            // 
+            // Username
+            // 
+            this.Username.HeaderText = "Username";
+            this.Username.Name = "Username";
+            this.Username.ReadOnly = true;
+            // 
+            // Points
+            // 
+            this.Points.HeaderText = "Points";
+            this.Points.Name = "Points";
+            this.Points.ReadOnly = true;
+            // 
+            // Date
+            // 
+            this.Date.HeaderText = "Date";
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
             // 
             // HighScores
             // 
@@ -127,5 +156,8 @@
         private System.Windows.Forms.Label labelSort;
         private System.Windows.Forms.Label labelLimit;
         private System.Windows.Forms.ComboBox comboBoxLimit;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Username;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Points;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
     }
 }

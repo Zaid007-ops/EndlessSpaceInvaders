@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace EndlessSpaceInvasion
 {
@@ -17,9 +18,7 @@ namespace EndlessSpaceInvasion
             comboBoxSort.SelectedIndex = 1;
             comboBoxLimit.SelectedIndex = 0;
 
-            var highScores = dataStoreService.GetHighScores(DefaultSort, DefaultLimit);
-
-            // TODO: Bind highscores to datagrid
+            BindData(dataStoreService.GetHighScores(DefaultSort, DefaultLimit));
         }
 
         private void buttonFilter_Click(object sender, System.EventArgs e)
@@ -33,7 +32,15 @@ namespace EndlessSpaceInvasion
                 limit = DefaultLimit;
             }
 
-            var highscores = _dataStoreService.GetHighScores(sort, limit);
+            BindData(_dataStoreService.GetHighScores(sort, limit));
+        }
+
+        private void BindData(List<HighScore> highCcores)
+        {
+            dataGridViewHighScores.Rows.Clear();
+
+            foreach (var highScore in highCcores)
+                dataGridViewHighScores.Rows.Add(highScore.Username, highScore.Score, highScore.Created);
         }
     }
 }

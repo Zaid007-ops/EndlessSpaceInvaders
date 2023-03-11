@@ -69,7 +69,7 @@ namespace EndlessSpaceInvasion
 
             if(currentKey.IsKeyDown(Keys.Escape) || IsPlayerOneDead())
             {
-                _dataStoreService.SaveScore(_username, DateTime.Now.Second);
+                _dataStoreService.SaveScore(_username, _score);
                 Exit();
             }
 
