@@ -36,6 +36,7 @@
             this.comboBoxLimit = new System.Windows.Forms.ComboBox();
             this.Username = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Points = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Level = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHighScores)).BeginInit();
             this.SuspendLayout();
@@ -49,6 +50,7 @@
             this.dataGridViewHighScores.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Username,
             this.Points,
+            this.Level,
             this.Date});
             this.dataGridViewHighScores.Enabled = false;
             this.dataGridViewHighScores.Location = new System.Drawing.Point(12, 42);
@@ -122,6 +124,12 @@
             this.Points.Name = "Points";
             this.Points.ReadOnly = true;
             // 
+            // Level
+            // 
+            this.Level.HeaderText = "Level";
+            this.Level.Name = "Level";
+            this.Level.ReadOnly = true;
+            // 
             // Date
             // 
             this.Date.HeaderText = "Date";
@@ -158,6 +166,7 @@
         private System.Windows.Forms.ComboBox comboBoxLimit;
         private System.Windows.Forms.DataGridViewTextBoxColumn Username;
         private System.Windows.Forms.DataGridViewTextBoxColumn Points;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Level;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
     }
 }

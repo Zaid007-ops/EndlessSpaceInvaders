@@ -17,9 +17,10 @@ namespace EndlessSpaceInvasion
         private readonly ContentManager _contentManager;
         private Texture2D _texture;
         private readonly Viewport _viewport;
+        private readonly int _currentLevel;
         public Vector2 Position;
         private bool _isVisible;
-        private const float RateOfSpeed = 0.5f;
+        private float _rateOfSpeed;
         private float _timeSinceLastShot;
 
         public string Type { get => Constants.GameEntityTypes.EnemyShip; }
@@ -28,13 +29,15 @@ namespace EndlessSpaceInvasion
         public int Health { get; set; }
         public Rectangle Boundary { get => new((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height); }
 
-        public EnemyShipSprite(ContentManager contentManager, Viewport viewport)
+        public EnemyShipSprite(ContentManager contentManager, Viewport viewport, float speed, int currentLevel)
         {
             _contentManager = contentManager;
             _texture = contentManager.Load<Texture2D>("RedEnemyShip");
             _viewport = viewport;
+            _currentLevel = currentLevel;
             _isVisible = true;
             _timeSinceLastShot = 2;
+            _rateOfSpeed = speed * currentLevel / 2;
 
             Health = 1;
             Position = new Vector2(GenerateRandomXPosition(viewport), GenerateRandomYPosition());
@@ -42,7 +45,7 @@ namespace EndlessSpaceInvasion
 
         public void Update(GameTime gameTime, List<IGameEntity> gameEntities, KeyboardState currentKey, KeyboardState previousKey)
         {
-            Position.Y += RateOfSpeed;
+            Position.Y += _rateOfSpeed;
 
             if (IsSpriteOffTheScreen() || HealthChecker.IsDead(Health))
                 _isVisible = false;
@@ -75,7 +78,7 @@ namespace EndlessSpaceInvasion
             bulletPosition.X += (float)_texture.Width / 2;
             bulletPosition.Y += _texture.Height;
 
-            var newLaser = new EnemyLaser(texture, _viewport, bulletPosition, 2);
+            var newLaser = new EnemyLaser(texture, _viewport, bulletPosition, 2 * _currentLevel / 2);
 
             gameEntities.Add(newLaser);
         }

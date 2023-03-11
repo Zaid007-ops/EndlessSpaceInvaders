@@ -7,6 +7,7 @@ namespace EndlessSpaceInvasion
         public int Id { get; set; }
         public string Username { get; set; }
         public int Score { get; set; }
+        public int Level { get; set; }
         public DateTime Created { get; set; }
     }
 }

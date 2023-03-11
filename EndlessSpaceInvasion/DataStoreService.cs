@@ -52,7 +52,7 @@ namespace EndlessSpaceInvasion
 
         private static void CreateTable()
         {
-            var query = $"CREATE TABLE {TableName} (Id INTEGER PRIMARY KEY AUTOINCREMENT, Username VARCHAR(50), HighScore INT, Created DATETIME)";
+            var query = $"CREATE TABLE {TableName} (Id INTEGER PRIMARY KEY AUTOINCREMENT, Username VARCHAR(50), HighScore INT, Level INT,Created DATETIME)";
 
             using (var conn = new SQLiteConnection(ConnectionString))
             using (var command = new SQLiteCommand(query, conn))
@@ -72,9 +72,9 @@ namespace EndlessSpaceInvasion
             }
         }
 
-        public void SaveScore(string username, int score)
+        public void SaveScore(string username, int score, int level)
         {
-            var query = $"INSERT INTO {TableName}(Id, Username, HighScore, Created) VALUES(@Id, @Username, @HighScore, @Created)";
+            var query = $"INSERT INTO {TableName}(Id, Username, HighScore, Level, Created) VALUES(@Id, @Username, @HighScore, @Level, @Created)";
 
             using (var conn = new SQLiteConnection(ConnectionString))
             using (var command = new SQLiteCommand(query, conn))
@@ -86,6 +86,7 @@ namespace EndlessSpaceInvasion
                     command.Parameters.AddWithValue("@Id", null);
                     command.Parameters.AddWithValue("@Username", username);
                     command.Parameters.AddWithValue("@HighScore", score);
+                    command.Parameters.AddWithValue("@Level", level);
                     command.Parameters.AddWithValue("@Created", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                     command.ExecuteNonQuery();
                 }
@@ -102,7 +103,7 @@ namespace EndlessSpaceInvasion
         {
             var highscores = new List<HighScore>();
 
-            var query = $"SELECT Id, Username, HighScore, Created FROM {TableName} ORDER BY HighScore {sort} LIMIT {limit}";
+            var query = $"SELECT Id, Username, HighScore, Level, Created FROM {TableName} ORDER BY HighScore {sort} LIMIT {limit}";
 
             using (var conn = new SQLiteConnection(ConnectionString))
             using (var command = new SQLiteCommand(query, conn))
@@ -121,13 +122,15 @@ namespace EndlessSpaceInvasion
                         var id = reader.GetInt32(0);
                         var username = reader.GetString(1);
                         var highscore = reader.GetInt32(2);
-                        var created = reader.GetDateTime(3);
+                        var level = reader.GetInt32(3);
+                        var created = reader.GetDateTime(4);
 
                         highscores.Add(new HighScore
                         {
                             Id = id,
                             Username = username,
                             Score = highscore,
+                            Level = level,
                             Created = created
                         });
                     }

@@ -5,7 +5,9 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
+using SharpDX;
 using Color = Microsoft.Xna.Framework.Color;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace EndlessSpaceInvasion
 {
@@ -69,7 +71,7 @@ namespace EndlessSpaceInvasion
 
             if(currentKey.IsKeyDown(Keys.Escape) || IsPlayerOneDead())
             {
-                _dataStoreService.SaveScore(_username, _score);
+                _dataStoreService.SaveScore(_username, _score, _level);
                 Exit();
             }
 
@@ -127,14 +129,18 @@ namespace EndlessSpaceInvasion
 
             for (var count = 1; count <= numberOfEnemyShips; count++)
             {
-                var enemyShip = new EnemyShipSprite(Content, _graphics.GraphicsDevice.Viewport);
+                var speed = new Random().NextFloat(0.5f, 1.5f);
+
+                var enemyShip = new EnemyShipSprite(Content, _graphics.GraphicsDevice.Viewport, speed, _level);
 
                 enemies.Add(enemyShip);
             }
 
             for (var count = 1; count <= numberOfBlueEnemyShips; count++)
             {
-                var enemyShip = new BlueShip(Content, _graphics.GraphicsDevice.Viewport);
+                var speed = new Random().NextFloat(0.5f, 1.5f);
+
+                var enemyShip = new BlueShip(Content, _graphics.GraphicsDevice.Viewport, speed, _level);
 
                 enemies.Add(enemyShip);
             }

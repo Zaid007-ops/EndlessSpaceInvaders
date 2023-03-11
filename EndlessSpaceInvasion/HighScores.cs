@@ -40,7 +40,7 @@ namespace EndlessSpaceInvasion
             dataGridViewHighScores.Rows.Clear();
 
             foreach (var highScore in highCcores)
-                dataGridViewHighScores.Rows.Add(highScore.Username, highScore.Score, highScore.Created);
+                dataGridViewHighScores.Rows.Add(highScore.Username, highScore.Score, highScore.Level, highScore.Created);
         }
     }
 }
