@@ -72,8 +72,8 @@ namespace EndlessSpaceInvasion
             var texture = _contentManager.Load<Texture2D>(Constants.GameEntityTypes.EnemyLaser);
 
             var bulletPosition = Position;
-            bulletPosition.X -= 3;
-            bulletPosition.Y += 9;
+            bulletPosition.X += (float)_texture.Width / 2;
+            bulletPosition.Y += _texture.Height;
 
             var newLaser = new EnemyLaser(texture, _viewport, bulletPosition, 2);
 
