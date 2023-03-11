@@ -144,6 +144,8 @@ namespace EndlessSpaceInvasion
 
         private void HandleCollisions(List<IGameEntity> gameEntities)
         {
+            // TODO: Fix same entities colliding
+
             foreach (var entity in gameEntities)
             {
                 entity.Health -= 1;
